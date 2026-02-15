@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pago</title>
+  <link rel="stylesheet" href="pagos.css">
+</head>
+<body>
+ <header id="idheader">
+    <img id="logotipo" src="imagenes/SamSport-logo.jpeg" alt="Logotipo de SamSport">
+    <nav class="menu">
+     <a href="main.html"> <button  id="boton1">Hogar</button> </a>
+      <a href="nosotros.html"><button id="boton2">Sobre Nosotros</button></a>
+      <a href="contactanos.html"><button id="boton3">Contactanos</button></a>
+    </nav>
+    <h1></h1>
+    
+
+  </header>
+
+
+<div class="row">
+  <div class="col-75">
+    <div class="container">
+      <form action="/action_page.php">
+
+        <div class="row">
+          <div class="col-50">
+            <h3>Billing Address</h3>
+            <label for="fname"><i class="fa fa-user"></i> Nombre Completo </label>
+            <input type="text" id="fname" name="firstname" placeholder="Walter M. A.">
+            <label for="email"><i class="fa fa-envelope"></i> Correo</label>
+            <input type="text" id="email" name="email" placeholder="Walter@example.com">
+            <label for="adr"><i class="fa fa-address-card-o"></i> Direccion</label>
+            <input type="text" id="adr" name="address" placeholder="carrera 4a-6744b ">
+            <label for="city"><i class="fa fa-institution"></i> Departamento</label>
+            <input type="text" id="city" name="city" placeholder="Atlantico">
+
+            <div class="row">
+              <div class="col-50">
+                <label for="state">Ciudad</label>
+                <input type="text" id="state" name="state" placeholder="Barranquilla">
+              </div>
+              <div class="col-50">
+                <label for="zip">Codigo Postal</label>
+                <input type="text" id="zip" name="zip" placeholder="018000">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-50">
+            <h3>PAGO</h3>
+            <label for="fname">Tarjetas Aceptadas</label>
+            <div class="icon-container">
+              <i class="fa fa-cc-visa" style="color:navy;"></i>
+              <i class="fa fa-cc-amex" style="color:blue;"></i>
+              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+              <i class="fa fa-cc-discover" style="color:orange;"></i>
+            </div>
+            <label for="cname">Nombre en la Tarjeta</label>
+            <input type="text" id="cname" name="cardname" placeholder="Walter Samuel Muñoz">
+            <label for="ccnum">Numero en la Tarjeta (16digitos) </label>
+            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+            <label for="expmonth">Mes de Expiracion</label>
+            <input type="text" id="expmonth" name="expmonth" placeholder="Septiembre">
+
+            <div class="row">
+              <div class="col-50">
+                <label for="expyear">Año de Expiracion</label>
+                <input type="text" id="expyear" name="expyear" placeholder="2018">
+              </div>
+              <div class="col-50">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="352">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <label>
+          <input type="checkbox" checked="checked" name="sameadr"> Estoy de acuerdo con las politicas de seguridad
+        </label>
+        <input  type="submit" value="PAGAR" class="btn" 
+        >
+        
+      </form>
+    </div>
+  </div>
+
+  <div class="container">
+  <h4>Cart
+    <span class="price" style="color:black">
+      <i class="fa fa-shopping-cart"></i>
+      <b>4</b>
+    </span>
+  </h4>
+  <div id="carrito-productos">
+    <p>Producto 1 <span class="price">$15</span></p>
+    <p>Producto 2 <span class="price">$5</span></p>
+    <p>Producto 3 <span class="price">$8</span></p>
+    <p>Producto 4 <span class="price">$2</span></p>
+  </div>
+  <hr>
+  <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+</div>
+
+
+  <script src="pago.js"></script>
+  <script src="acciones.js"></script>
+</body>
+</html>

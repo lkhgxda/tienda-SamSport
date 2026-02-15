@@ -1,0 +1,97 @@
+/* RESET GLOBAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* VARIABLES DE COLOR */
+:root {
+  --primary: #0a1128;
+  --background: #e0f7fa;
+  --card-bg: #ffffff;
+  --text-color: #333;
+}
+
+/* BODY GLOBAL */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* HEADER */
+#idheader {
+  background-color: var(--primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  height: 100px;
+}
+
+#logotipo {
+  width: 123px;
+  height: auto;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+}
+
+/* BOTONES HEADER */
+#boton1, #boton2, #boton3 {
+  padding: 10px 25px;
+  border-radius: 25px;
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#boton1:hover, #boton2:hover, #boton3:hover {
+  background-color: white;
+  color: var(--primary);
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* SECCIONES DE TEXTO */
+.section {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.section h2 {
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.p3 {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* LISTAS DE OBJETIVOS */
+ul {
+  list-style: disc;
+  padding-left: 2rem;
+}
+
+.li-title {
+  font-weight: bold;
+  color: var(--primary);
+}
+ 

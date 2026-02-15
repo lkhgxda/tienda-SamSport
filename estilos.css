@@ -1,0 +1,326 @@
+/* RESET GLOBAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* VARIABLES DE COLOR */
+:root {
+    --primary: #0a1128;          /* Azul oscuro SamSport */
+    --background: #e0f7fa;       /* Sky blue clarito para fondo */
+    --card-bg: #ffffff;          /* Fondo blanco para las cards */
+    --text-color: #333;
+}
+
+/* MODO OSCURO (no implementado pero listo para usar) */
+body.dark-mode {
+    --primary: #ffc107;
+    --background: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #ffffff;
+}
+
+/* ESTILO GLOBAL DEL BODY */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* HEADER PRINCIPAL */
+#idheader {
+    background-color: #010e27;
+  border: 2px solid #010649;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    height: 100px;
+}
+
+/* LOGO */
+#logotipo {
+    width: 123px;
+    height: auto;
+    
+}
+
+/* MENÚ DE BOTONES */
+.menu {
+    display: flex;
+    gap: 20px;
+}
+
+/* BOTONES DEL MENÚ */
+#boton1, #boton2, #boton3 {
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* EFECTO HOVER */
+#boton1:hover, #boton2:hover, #boton3:hover {
+    background-color: white;
+    color: var(--primary);
+}
+
+/* BOTÓN CARRITO */
+#carrito {
+    font-size: 20px;
+    padding: 10px 15px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* EFECTO HOVER CARRITO */
+#carrito:hover {
+    background-color: white;
+    color: var(--primary);
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* GRID DE PRODUCTOS */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+/* CARD PRODUCTO */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: relative;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* ANIMACION DE ENTRADA */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* IMAGENES DENTRO DE LA CARD */
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* CONTENIDO DE LA CARD */
+.card-body {
+    padding: 1rem;
+    text-align: center; /* CENTRAR TODO EL TEXTO Y BOTONES */
+}
+
+/* TITULO DE LA CARD */
+.card-title {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+/* GRUPO DE BOTONES EN CARD */
+.btn-group a {
+    margin: 0 5px;
+}
+
+/* BOTONES DE LAS CARDS */
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    background-color: var(--primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #071324; /* un azul más oscuro para hover */
+}
+
+/* BADGES (oferta, nuevo) */
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: red;
+    color: white;
+    padding: 0.3rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* PAGINACIÓN */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.pagination a {
+    padding: 0.5rem 1rem;
+    background-color: var(--card-bg);
+    border: 1px solid #ccc;
+    text-decoration: none;
+    border-radius: 5px;
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--primary);
+    color: white;
+    margin-top: 2rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    nav.menu {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+#carrito-lateral {
+  position: fixed;
+  top: 0;
+  right: -5cm; /* Oculto a la derecha inicialmente */
+  width: 5cm;
+  height: 100vh;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+  padding: 1rem;
+  box-sizing: border-box;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1000;
+  color: var(--primary);
+}
+
+#carrito-lateral.visible {
+  right: 0;
+}
+
+#carrito-lateral h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  border-bottom: 1px solid var(--primary);
+  padding-bottom: 0.5rem;
+}
+
+#carrito-contenido {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+#carrito-contenido p {
+  font-style: italic;
+  color: #666;
+}
+
+#btn-pagar {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+#btn-pagar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#carrito-lateral {
+  position: fixed;
+  top: 0;
+  right: -5cm;
+  width: 5cm;
+  height: 100vh;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+  padding: 1rem;
+  box-sizing: border-box;
+  transition: right 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1000;
+  color: var(--primary);
+}
+
+#carrito-lateral.visible {
+  right: 0;
+}
+
+#carrito-lateral h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--primary);
+  padding-bottom: 0.5rem;
+}
+
+#carrito-contenido {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+#carrito-contenido p {
+  font-style: italic;
+  color: #666;
+}
+
+#btn-pagar {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+#btn-pagar:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+

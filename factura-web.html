@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechStore - E-commerce</title>
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --background: #f4f4f4;
+      --card-bg: #ffffff;
+      --text-color: #333;
+    }
+
+    body.dark-mode {
+      --primary: #ffc107;
+      --background: #121212;
+      --card-bg: #1e1e1e;
+      --text-color: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    header .cart {
+      position: absolute;
+      right: 2rem;
+      top: 1.2rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    header .dark-toggle {
+      position: absolute;
+      left: 2rem;
+      top: 1.2rem;
+      background: none;
+      border: 2px solid white;
+      color: white;
+      padding: 0.3rem 0.7rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    nav {
+      background-color: var(--card-bg);
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .filters {
+      max-width: 1200px;
+      margin: 1rem auto;
+      padding: 0 1rem;
+    }
+
+    .filters span {
+      background-color: #dee2e6;
+      padding: 0.5rem 1rem;
+      margin: 0.3rem;
+      border-radius: 20px;
+      display: inline-block;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .filters span:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+
+    .card-price {
+      font-size: 1rem;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: red;
+      color: white;
+      padding: 0.3rem 0.7rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .pagination a {
+      padding: 0.5rem 1rem;
+      background-color: var(--card-bg);
+      border: 1px solid #ccc;
+      text-decoration: none;
+      border-radius: 5px;
+      color: var(--text-color);
+    }
+
+    .pagination a:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: var(--primary);
+      color: white;
+      margin-top: 2rem;
+    }
+
+    .cart-modal {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      background-color: var(--card-bg);
+      border: 1px solid #ccc;
+      padding: 1rem;
+      width: 300px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 1000;
+      border-radius: 10px;
+    }
+
+    .cart-modal h3 {
+      margin-top: 0;
+    }
+
+    .cart-items {
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .cart-modal button {
+      margin-top: 1rem;
+      width: 100%;
+      background-color: red;
+      border: none;
+      padding: 0.5rem;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    header .cart {
+  position: absolute;
+  right: 2rem;
+  top: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.cart::after {
+  content: attr(data-count);
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="idheader">
+    <img id="logotipo" src="imagenes/SamSport-logo.jpeg" alt="Logotipo de SamSport">
+    <nav class="menu">
+     <a href="main.html"> <button  id="boton1">Hogar</button> </a>
+      <a href="nosotros.html"><button id="boton2">Sobre Nosotros</button></a>
+      <a href="contactanos.html"><button id="boton3">Contactanos</button></a>
+    </nav>
+    
+  </header>
+
+  <nav>
+    <a href="#">Inicio</a>
+    <a href="#">Productos</a>
+    <a href="#">Ofertas</a>
+    <a href="#">Contacto</a>
+  </nav>
+
+  <div class="filters">
+    <span>Todo</span>
+    <span>Laptops</span>
+    <span>Smartphones</span>
+    <span>Audio</span>
+    <span>Accesorios</span>
+  </div>
+
+  <div class="container">
+    <div class="products">
+      <div class="card">
+        <span class="badge">Oferta</span>
+        <img src="https://picsum.photos/id/180/400/300" alt="Laptop">
+        <div class="card-body">
+          <div class="card-title">Laptop HP 14”</div>
+          <div class="card-price">$599.99</div>
+          <a href="#" class="btn" onclick="addToCart('Laptop HP 14”')">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="badge">Nuevo</span>
+        <img src="https://picsum.photos/id/250/400/300" alt="Smartphone">
+        <div class="card-body">
+          <div class="card-title">Smartphone Android</div>
+          <div class="card-price">$299.99</div>
+          <a href="#" class="btn" onclick="addToCart('Smartphone Android')">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://picsum.photos/id/1080/400/300" alt="Auriculares">
+        <div class="card-body">
+          <div class="card-title">Auriculares Bluetooth</div>
+          <div class="card-price">$89.99</div>
+          <a href="#" class="btn" onclick="addToCart('Auriculares Bluetooth')">Comprar</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="badge">Oferta</span>
+        <img src="https://picsum.photos/id/1010/400/300" alt="Smartwatch">
+        <div class="card-body">
+          <div class="card-title">Smartwatch Series 5</div>
+          <div class="card-price">$149.99</div>
+          <a href="#" class="btn" onclick="addToCart('Smartwatch Series 5')">Comprar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <a href="#">«</a>
+      <a href="#">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">»</a>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 TechStore - Todos los derechos reservados
+  </footer>
+
+  <div class="cart-modal" id="cartModal">
+    <h3>Carrito</h3>
+    <div class="cart-items" id="cartItems"></div>
+    <p id="cartTotal" style="font-weight:bold; margin-top:0.5rem;"></p>
+    <button onclick="payCart()" style="margin-top: 0.5rem; width: 100%; background-color: green; border: none; padding: 0.5rem; color: white; border-radius: 5px; cursor: pointer;">
+  Pagar
+</button>
+
+
+    <button onclick="clearCart()">Vaciar carrito</button>
+  </div>
+
+  <script>
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+  }
+
+  function toggleCart() {
+    const cartModal = document.getElementById('cartModal');
+    cartModal.style.display = cartModal.style.display === 'block' ? 'none' : 'block';
+  }
+
+  const cart = [];
+
+  const productData = {
+    'Laptop HP 14”': 599.99,
+    'Smartphone Android': 299.99,
+    'Auriculares Bluetooth': 89.99,
+    'Smartwatch Series 5': 149.99
+  };
+
+  function addToCart(productName) {
+    const price = productData[productName];
+    cart.push({ name: productName, price });
+    renderCart();
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    renderCart();
+  }
+
+  function clearCart() {
+    cart.length = 0;
+    renderCart();
+  }
+
+  function renderCart() {
+    const cartItems = document.getElementById('cartItems');
+    cartItems.innerHTML = '';
+
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<p>Tu carrito está vacío.</p>';
+      updateCartIcon();
+      return;
+    }
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      total += item.price;
+
+      const div = document.createElement('div');
+      div.style.display = 'flex';
+      div.style.justifyContent = 'space-between';
+      div.style.alignItems = 'center';
+      div.style.marginBottom = '0.5rem';
+
+      const info = document.createElement('span');
+      info.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+
+      const btn = document.createElement('button');
+      btn.textContent = '❌';
+      btn.style.background = 'none';
+      btn.style.border = 'none';
+      btn.style.color = 'red';
+      btn.style.cursor = 'pointer';
+      btn.style.fontSize = '1rem';
+      btn.onclick = () => removeFromCart(index);
+
+      div.appendChild(info);
+      div.appendChild(btn);
+      cartItems.appendChild(div);
+    });
+
+    const totalDiv = document.createElement('div');
+    totalDiv.style.marginTop = '1rem';
+    totalDiv.style.fontWeight = 'bold';
+    totalDiv.textContent = `Total: $${total.toFixed(2)}`;
+    cartItems.appendChild(totalDiv);
+
+    updateCartIcon();
+  }
+
+  function updateCartIcon() {
+    const cartIcon = document.querySelector('.cart');
+    const count = cart.length;
+    cartIcon.innerHTML = `🛒 <span style="background:red;color:white;border-radius:50%;padding:2px 6px;font-size:0.8rem;margin-left:4px;">${count}</span>`;
+  }
+
+  // Inicializa el contador
+  updateCartIcon();
+    
+    function payCart() {
+  if (cart.length === 0) {
+    alert('Tu carrito está vacío.');
+    return;
+  }
+
+  clearCart();        // Vaciar el carrito
+  renderCart();       // Refrescar vista
+  toggleCart();       // Cierra el carrito
+  showPaymentModal(); // Muestra modal de pago
+}
+
+function showPaymentModal() {
+  document.getElementById('paymentModal').style.display = 'flex';
+}
+
+function closePaymentModal() {
+  document.getElementById('paymentModal').style.display = 'none';
+}
+
+</script>
+
+  
+  <!-- Modal de pago -->
+<div id="paymentModal" style="
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+">
+  <div style="
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    animation: fadeIn 0.3s ease;
+  ">
+    <h2>✅ ¡Pago realizado con éxito!</h2>
+    <p>Gracias por tu compra.</p>
+    <button onclick="closePaymentModal()" style="
+      margin-top: 1rem;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    ">Cerrar</button>
+  </div>
+</div>
+
+<style>
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+</style>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
